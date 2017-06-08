@@ -709,10 +709,11 @@ class QueryResult(db.Model, BelongsToOrgMixin):
         query_data = json.loads(self.data)
         book = xlsxwriter.Workbook(s)
         sheet = book.add_worksheet("result")
+        column_names_format = book.add_format({'bold': True, 'font_color': 'white', 'bg_color': 'black'})
 
         column_names = []
         for (c, col) in enumerate(query_data['columns']):
-            sheet.write(0, c, col['name'])
+            sheet.write(0, c, col['name'],column_names_format)
             column_names.append(col['name'])
 
         for (r, row) in enumerate(query_data['rows']):
